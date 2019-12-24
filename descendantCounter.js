@@ -1,16 +1,15 @@
-(function descendantCounter_1_2() {
+(function descendantCounter_1_3() {
+  function formatName(item) {
+    const truncate = (str, max) => str.length > max ? `${str.substring(0, max - 1)}…` : str;
+    const truncated = truncate(item.getNameInPlainText(), 45);
+    return item.isCompleted() ? `<s>${truncated}</s>` : truncated;
+  }
   const current = WF.currentItem();
   const children = current.getChildren();
-  const pName = current.getNameInPlainText();
   const pNum = current.getNumDescendants().toString();
-  const padMax = pNum.length;
   const counts = children.map(item => {
-    let name = item.getNameInPlainText();
-    if (name.length > 45) name = name.substr(0, 42) + "...";
-    if (item.isCompleted()) name = name.strike();
-    let cNum = item.getNumDescendants().toString();
-    cNum = cNum.padStart(padMax, " ");
-    return `${cNum}\t${name}`
+    const cNum = item.getNumDescendants().toString().padStart(pNum.length, " ");
+    return `${cNum}\t${formatName(item)}`
   });
-  WF.showAlertDialog(`<pre><b>${pNum}\t${pName}</b><br>${counts.join("<br>")}</pre>`);
+  WF.showAlertDialog(`<pre><b>${pNum}\t${formatName(current)}</b><br>${counts.join("<br>")}</pre>`);
 })(); 
