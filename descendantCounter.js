@@ -1,4 +1,4 @@
-(function descendantCounter_1_3() {
+(function descendantCounter_1_4() {
   function formatName(item) {
     const truncate = (str, max) => str.length > max ? `${str.substring(0, max - 1)}…` : str;
     const truncated = truncate(item.getNameInPlainText(), 45);
