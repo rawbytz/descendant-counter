@@ -1,7 +1,8 @@
 (function descendantCounter_1_4() {
   function formatName(item) {
+    const htmlEscText = str => str.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
     const truncate = (str, max) => str.length > max ? `${str.substring(0, max - 1)}…` : str;
-    const truncated = truncate(item.getNameInPlainText(), 45);
+    const truncated = htmlEscText(truncate(item.getNameInPlainText(), 45));
     return item.isCompleted() ? `<s>${truncated}</s>` : truncated;
   }
   const current = WF.currentItem();
@@ -13,3 +14,5 @@
   });
   WF.showAlertDialog(`<pre><b>${pNum}\t${formatName(current)}</b><br>${counts.join("<br>")}</pre>`);
 })(); 
+
+// <a href="${url === "/" ? "/#" : url}" onclick="WF.hideMessage();return true">${htmlEscText(target.getNameInPlainText())}</a>\
