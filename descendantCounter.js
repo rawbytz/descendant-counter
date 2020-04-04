@@ -10,7 +10,6 @@
   const pNum = current.getNumDescendants().toString();
   const counts = children.map(item => {
     const cNum = item.getNumDescendants().toString().padStart(pNum.length, " ");
-    // return `${cNum}\t${formatName(item)}`
     return `${cNum}\t<a href="${item.getUrl()}" onclick="WF.hideDialog();return true">${formatName(item)}</a>`
   });
   WF.showAlertDialog(`<pre><b>${pNum}\t${formatName(current)}</b><br>${counts.join("<br>")}</pre>`);
